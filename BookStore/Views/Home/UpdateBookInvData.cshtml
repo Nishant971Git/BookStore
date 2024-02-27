@@ -1,0 +1,81 @@
+﻿@model BookStore.ViewModal.BookData
+@{
+    ViewData["Title"] = "UpdateBookInvData";
+}
+
+
+<div class="row">
+    <!-- end of row -->
+    <div class="col-md-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="card-title mb-3">Edit Book Data</div>
+                <form class="go-bottom" asp-action="UpdateBookDataList" asp-controller="Home" method="post" enctype="multipart/form-data">
+                    <div class="row">
+
+                       
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="firstName2">Book Title</label>
+                            <input type="text" class="form-control form-control-rounded" id="booktitle" asp-for="BookTitle" value="@ViewBag.Data[0].BookTitle">
+                        </div>
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="firstName2">Author</label>
+                            <input type="text" class="form-control form-control-rounded" id="author" asp-for="Author" value="@ViewBag.Data[0].Author">
+
+                        </div>
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="firstName2">Date of Publish</label>
+                            <input type="text" class="form-control form-control-rounded" id="dateofpublish" asp-for="DateofPublish" value="@ViewBag.Data[0].DateofPublish">
+
+                        </div>
+                        <div class="col-md-6 form-group mb-3" id="dvPGno">
+                            <label for="firstName2">Price</label>
+                            
+                            <input type="text" class="form-control form-control-rounded" id="price" asp-for="Price" value="@ViewBag.Data[0].Price">
+                            <input type="text" hidden asp-for="Id" value="@ViewBag.Data[0].Id" />
+                        </div>
+
+                       
+
+                        
+
+
+                       
+                       
+
+                        <div class="col-md-12">
+                            <button class="btn btn-primary">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- end of col -->
+    <!-- fotter end -->
+</div>
+
+
+ @section scripts {
+   <script>
+
+//$(function(){
+//    BindBookData();
+//});
+
+//function BindBookData(){
+//    debugger;
+
+
+//            $('#booktitle').val(@ViewBag.Data[0].BookTitle);
+//            $('#author').val(@ViewBag.Data[0].Author);
+//            $('#dateofpublish').val(@ViewBag.Data[0].DateofPublish);
+//            $('#price').val(@ViewBag.Data[0].Price);
+//}
+                                    
+ </script>
+    }

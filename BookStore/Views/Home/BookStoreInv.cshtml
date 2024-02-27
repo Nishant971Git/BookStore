@@ -1,0 +1,211 @@
+﻿@model BookStore.ViewModal.BookData;
+@{
+    ViewData["Title"] = "BookStore";
+}
+
+
+<div class="col-md-12 mb-4">
+    <div class="card text-left">
+
+        <div class="card-body">
+            <h4 class="card-title mb-3">Book Store</h4>
+
+            <div class="table-responsive">
+                <table id="tblBookList" class="display table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>S No.</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Date of Publish</th>
+                            <th>Price</th>
+                            <th>action</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody id="tblBookListBody">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+<div class="row">
+    <!-- end of row -->
+    <div class="col-md-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="card-title mb-3">Edit Book Data</div>
+                <form class="go-bottom" asp-action="SaveNewBookDetailsData" asp-controller="Home" method="post" enctype="multipart/form-data">
+                    <div class="row">
+
+
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="firstName2">Book Title</label>
+                            <input type="text" class="form-control form-control-rounded" id="booktitle" asp-for="BookTitle">
+                        </div>
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="firstName2">Author</label>
+                            <input type="text" class="form-control form-control-rounded" id="author" asp-for="Author">
+
+                        </div>
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="firstName2">Date of Publish</label>
+                            <input type="text" class="form-control form-control-rounded" id="dateofpublish" asp-for="DateofPublish">
+
+                        </div>
+                        <div class="col-md-6 form-group mb-3" id="dvPGno">
+                            <label for="firstName2">Price</label>
+
+                            <input type="text" class="form-control form-control-rounded" id="price" asp-for="Price">
+
+                        </div>
+
+
+
+
+
+
+
+
+
+                        <div class="col-md-12">
+                            <button class="btn btn-primary">Add</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- end of col -->
+    <!-- fotter end -->
+</div>
+
+
+@section Scripts
+    {
+    
+   @* <script src="~/lib/dataTables/dataTables.bootstrap.min.js"></script>*@
+
+<script>
+
+    $(function(){
+            BindInventoryList();
+    })
+        $('#edit').click(function () {
+            
+        EditInventoryList();
+
+    });
+
+        //$('#add').click(function (){
+        //    AddNewBook();
+        //});
+
+        //function AddNewBook(){
+        //    $.ajax({
+        //        type: "GET",
+        //        url: "add-new-book-details",
+        //        contentType: "application/json; charset=utf-8",
+                
+        //        dataType: "json",
+        //        success: function (data) {
+        //            console.log("success");
+        //        }
+
+        //    });
+        //}
+         
+    function BindInventoryList() {
+
+
+       
+        var parameters = {
+            
+           
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/get-book-inventory-list",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(parameters),
+            dataType: "json",
+
+            success: function (data) {
+                if (data) {
+                    debugger;
+
+                    console.log(data);
+                       
+                        $('#tblBookListBody').empty();
+                        $.each(data.result.value, function (index, val) {
+                            $('#tblBookListBody').append("<tr><td>"+ val.id + "</td><td>" + val.bookTitle + "<td/><td>" + val.author + "</td><td>" + val.dateofPublish + "</td><td>" + val.price + "</td><td>"
+                                + "<a href = '/delete-book-inventory-list/" + val.id + "' class= 'btn btn-primary btn-sm m-1'>Delete</a > " +
+                                "<a href = '/get-book-inv-data/" + val.id + "' class= 'btn btn-primary btn-sm m-1'>Update</a > " + "</td ></tr>");
+                    });
+                        //$("#tblBookList").DataTable(
+                        //{
+
+                        //    //dom: 'lBfrtip',
+                        //    bFilter: true,
+                        //    "columnDefs": [
+                        //        {
+                        //            "targets": [0], "defaultContent": '', 'checkboxes': { 'selectRow': true }
+                        //        }
+                        //    ],
+
+                        //});
+                }
+
+            }
+
+        });
+
+    }
+
+        function EditInventoryList(){
+
+            var id= $
+
+            $.ajax({
+                type: "POST",
+                url: "/delete-book-inventory-list",
+                data: { "id": login_Id, "Command": Edit },
+                success: function (data) {
+                    if (data) {
+                        //console.log(data.data[0].userType);
+                        $('#usertype').val(data.data[0].userType);
+                        $('#portofimport').val(data.data[0].customPort);
+                        $('#txtuserid').val(data.data[0].login_Id);
+                        $('#txtpassword').val(data.data[0].login_Pwd);
+                        populateDataTable();
+                    }
+                    else {
+
+                    }
+                    $("#dvLoading").hide();
+                    $("body").removeClass("submit-progress-bg");
+                }
+
+
+            });
+        }
+
+
+
+</script>
+
+                    }
